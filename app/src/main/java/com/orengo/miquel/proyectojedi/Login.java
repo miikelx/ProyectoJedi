@@ -41,6 +41,7 @@ public class Login extends AppCompatActivity {
 
     private void execRegister() {
         Intent intent = new Intent(Login.this,Register.class);
+        startActivity(intent);
 
     }
 
@@ -51,6 +52,7 @@ public class Login extends AppCompatActivity {
         if(db.loginOk(username, password)){
             Intent intent = new Intent(Login.this,MainActivity.class);
             startActivity(intent);
+            db.logIn(username);
         }
         else{
             Snackbar.make(findViewById(R.id.layoutLogin),"Username o password incorrecto",Snackbar.LENGTH_SHORT).show();

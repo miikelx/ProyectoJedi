@@ -23,7 +23,9 @@ public class DB extends SQLiteOpenHelper {
     public static final String USERS_TABLE_CREATE = "CREATE TABLE " + USERS_TABLE + " (username TEXT PRIMARY KEY UNIQUE, password TEXT);";
 
 
+    public static final String USER_LOGGED = "Logged";
 
+    public static final String USER_LOGGED_CREATE = "CREATE TABLE "+USER_LOGGED+" (username TEXT PRIMARY KEY UNIQUE);";
 
     public DB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,6 +34,7 @@ public class DB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(USERS_TABLE_CREATE);
+        db.execSQL(USER_LOGGED_CREATE);
     }
 
     public boolean loginOk(String username, String password) {
@@ -48,5 +51,34 @@ public class DB extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public void logIn(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "INSERT INTO "+USER_LOGGED+" (username) VALUES ('"+username+"')";
+        db.execSQL(SQL);
+    }
+
+    public void logOut(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "DELETE * FROM "+USER_LOGGED+";";
+        db.execSQL(SQL);
+    }
+
+    public boolean existe(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "SELECT * FROM " + USERS_TABLE + " WHERE username='" + username+"'";
+        Cursor c = db.rawQuery(SQL, null);
+        int numero = 0;
+        if(c.moveToFirst()){
+            ++numero;
+        }
+        return(numero > 0);
+    }
+
+    public void register(String u, String p1) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "INSERT INTO "+USERS_TABLE+" (username,password) VALUES ('"+u+"','"+p1+"')";
+        db.execSQL(SQL);
     }
 }
