@@ -1,22 +1,13 @@
 package com.orengo.miquel.proyectojedi;
 
 import android.content.ComponentName;
-import android.content.Intent;
 import android.content.ServiceConnection;
-import android.media.Image;
-import android.media.MediaPlayer;
-import android.os.Environment;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.File;
-import java.io.IOException;
 
 public class MusicPlayer extends AppCompatActivity {
 
@@ -28,7 +19,7 @@ public class MusicPlayer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_player);
+        setContentView(R.layout.music_player);
         //mConnection.onServiceConnected();
         bPlay = (ImageView) findViewById(R.id.iv_play);
         bPlay.setOnClickListener(new View.OnClickListener() {

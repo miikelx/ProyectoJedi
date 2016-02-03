@@ -19,7 +19,8 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login);
+        setTitle("Login");
         db = new DB(getApplicationContext());
         nom = (EditText) findViewById(R.id.et_username);
         pass = (EditText) findViewById(R.id.et_password);
@@ -53,6 +54,7 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(Login.this,MainActivity.class);
             startActivity(intent);
             db.logIn(username);
+            finish();
         }
         else{
             Snackbar.make(findViewById(R.id.layoutLogin),"Username o password incorrecto",Snackbar.LENGTH_SHORT).show();

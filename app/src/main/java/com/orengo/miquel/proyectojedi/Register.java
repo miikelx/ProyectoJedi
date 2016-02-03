@@ -1,5 +1,6 @@
 package com.orengo.miquel.proyectojedi;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +20,8 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.register);
+        setTitle("Register");
         db = new DB(getApplicationContext());
         username = (EditText) findViewById(R.id.et_username_register);
         password1 = (EditText) findViewById(R.id.et_password_register);
@@ -40,6 +42,8 @@ public class Register extends AppCompatActivity {
         if(!db.existe(u)){
             if(p1.equals(p2)){
                 db.register(u,p1);
+                startActivity(new Intent(Register.this, Login.class));
+                finish();
             }
             else{
                 Snackbar.make(findViewById(R.id.layoutRegister),"Los passwords no coinciden",Snackbar.LENGTH_SHORT).show();

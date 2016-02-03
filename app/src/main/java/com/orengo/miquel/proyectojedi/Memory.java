@@ -8,6 +8,6 @@ public class Memory extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_memory);
+        setContentView(R.layout.memory);
     }
 }
