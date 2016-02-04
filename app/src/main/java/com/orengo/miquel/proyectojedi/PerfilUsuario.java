@@ -1,10 +1,11 @@
 package com.orengo.miquel.proyectojedi;
 
-//import android.app.Fragment;
+
+import android.app.Activity;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +22,9 @@ public class PerfilUsuario extends Fragment {
     private TextView direccion;
     private Button addDireccion;
     private DB db;
-
-
-
-    TextView tv;
-
     private OnFragmentInteractionListener mListener;
+    private Uri path;
+    private String username;
 
     public PerfilUsuario() {
         // Required empty public constructor
@@ -43,12 +41,19 @@ public class PerfilUsuario extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.perfil_usuario, container, false);
         fotoPerfil = (ImageView) rootView.findViewById(R.id.iv_fotoperfil);
-//        nombre = (TextView) rootView.findViewById(R.id.tv_nombre);
-//        mejorPuntuacion = (TextView) rootView.findViewById(R.id.tv_puntuacion);
-//        direccion = (TextView) rootView.findViewById(R.id.tv_direccion);
-//        addDireccion = (Button) rootView.findViewById(R.id.b_direccion);
-//        db = new DB(getApplicationContext());
-//        Usuario u = db.getUsuario(db.getConectado());
+        nombre = (TextView) rootView.findViewById(R.id.tv_username);
+        mejorPuntuacion = (TextView) rootView.findViewById(R.id.tv_puntuacion);
+        direccion = (TextView) rootView.findViewById(R.id.tv_direccion);
+        addDireccion = (Button) rootView.findViewById(R.id.b_afegir_direccio);
+        db = new DB(getActivity());
+        Usuario u = db.getUsuario(db.getConectado());
+        username = u.getUsername();
+        nombre.setText(u.getUsername());
+        if(u.getIntentos() != -1) mejorPuntuacion.setText(Integer.toString(u.getIntentos()));
+        else mejorPuntuacion.setText("No ha jugado ninguna partida.");
+        if(!u.getDireccion().equals("")) direccion.setText(u.getDireccion());
+        else direccion.setText("No se ha añadido direccon");
+        if(!u.getFotoPerfil().equals("")) fotoPerfil.setImageURI(u.getFotoPerfil());
         fotoPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +62,16 @@ public class PerfilUsuario extends Fragment {
                 startActivityForResult(getImageAsContent, 1);
             }
         });
+
         return rootView;
+    }
+
+    public void onActivityResult(int reqCode, int resCode, Intent data){
+        if(resCode == Activity.RESULT_OK){
+            if(reqCode == 1) fotoPerfil.setImageURI(data.getData());
+            path = data.getData();
+            db.updateImage(username,path.toString());
+        }
     }
 
     @Override

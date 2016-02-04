@@ -1,5 +1,6 @@
 package com.orengo.miquel.proyectojedi;
 
+import android.content.ContentResolver;
 import android.net.Uri;
 
 /**
@@ -14,6 +15,9 @@ public class Usuario {
     private String direccion;
 
     public Usuario() {
+        this.intentos = -1;
+        this.direccion = "";
+        this.fotoPerfil = Uri.parse("android.resource://com.orengo.miquel.proyectojedi/drawable/noimage");
     }
 
     public Usuario(String username, String password, Uri fotoPerfil, int intentos, String direccion) {

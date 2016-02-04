@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 /**
  * Created by Miquel on 1/2/16.
  */
@@ -63,7 +65,7 @@ public class DB extends SQLiteOpenHelper {
 
     public void logOut(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String SQL = "DELETE * FROM "+USER_LOGGED+";";
+        String SQL = "DELETE FROM "+USER_LOGGED+";";
         db.execSQL(SQL);
     }
 
@@ -80,7 +82,12 @@ public class DB extends SQLiteOpenHelper {
 
     public void register(String u, String p1) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String SQL = "INSERT INTO "+USERS_TABLE+" (username,password) VALUES ('"+u+"','"+p1+"')";
+        Usuario aux = new Usuario();
+        String uri,dir;
+        int punt = aux.getIntentos();
+        uri = aux.getFotoPerfil().toString();
+        dir = aux.getDireccion();
+        String SQL = "INSERT INTO "+USERS_TABLE+" (username,password,imagen,puntuacion,direccion) VALUES ('"+u+"','"+p1+"','"+uri+"',"+punt+",'"+dir+"')";
         db.execSQL(SQL);
     }
 
@@ -90,23 +97,60 @@ public class DB extends SQLiteOpenHelper {
         String res = "";
         Cursor c = db.rawQuery(SQL, null);
         if(c.moveToFirst()){
-            res = c.getString(1);
+            res = c.getString(0);
         }
         return res;
     }
 
     public Usuario getUsuario(String username){
         SQLiteDatabase db = this.getWritableDatabase();
-        String SQL = "SELECT FROM "+USERS_TABLE+" WHERE username='"+username+"'";
+        String SQL = "SELECT * FROM "+USERS_TABLE+" WHERE username='"+username+"'";
         Cursor c = db.rawQuery(SQL,null);
         Usuario nuevo = new Usuario();
         if(c.moveToFirst()){
-            nuevo.setUsername(c.getString(1));
-            nuevo.setPassword(c.getString(2));
-            nuevo.setFotoPerfil(Uri.parse(c.getString(3)));
-            nuevo.setIntentos(c.getInt(4));
-            nuevo.setDireccion(c.getString(5));
+            nuevo.setUsername(c.getString(0));
+            nuevo.setPassword(c.getString(1));
+            nuevo.setFotoPerfil(Uri.parse(c.getString(2)));
+            nuevo.setIntentos(c.getInt(3));
+            nuevo.setDireccion(c.getString(4));
         }
         return nuevo;
+    }
+
+    ArrayList<Usuario> getUsers(){
+        ArrayList<Usuario> ret = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "SELECT * FROM "+USERS_TABLE+";";
+        Cursor c = db.rawQuery(SQL,null);
+        if (c.moveToFirst()) {
+            do {
+                Usuario aux = new Usuario();
+                aux.setUsername(c.getString(0));
+                aux.setPassword(c.getString(1));
+                aux.setFotoPerfil(Uri.parse(c.getString(2)));
+                aux.setIntentos(c.getInt(3));
+                aux.setDireccion(c.getString(4));
+                ret.add(aux);
+            } while (c.moveToNext());
+        }
+        return ret;
+    }
+
+    public void updateImage(String username, String image){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "UPDATE "+USERS_TABLE+" SET imagen='"+image+"' WHERE username='"+username+"'";
+        db.execSQL(SQL);
+    }
+
+    public void updateDireccion(String username, String direccion){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "UPDATE "+USERS_TABLE+" SET direccion='"+direccion+"' WHERE username='"+username+"'";
+        db.execSQL(SQL);
+    }
+
+    public void updatePuntuacion(String username, int puntuacion){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "UPDATE "+USERS_TABLE+" SET puntuacion="+puntuacion+" WHERE username='"+username+"'";
+        db.execSQL(SQL);
     }
 }

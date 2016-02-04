@@ -16,4 +16,7 @@
     <item
         android:id="@+id/menu_calculadora"
         android:title="Calculadora"/>
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Logout"/>
 </menu>

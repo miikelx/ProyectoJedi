@@ -32,26 +32,20 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         // Initializing Toolbar and setting it as the actionbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         //Initializing NavigationView
         navigationView = (NavigationView) findViewById(R.id.navview);
-
         //Initializing DrawerLayout
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout)
-        ;
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-
                 //Checking if the item is in checked state or not, if not make it in checked state
                 if (menuItem.isChecked()) menuItem.setChecked(false);
                 else menuItem.setChecked(true);
-
                 //Closing drawer on item click
                 drawerLayout.closeDrawers();
-
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
                     case R.id.menu_perfil:
@@ -75,6 +69,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                     case R.id.menu_reproductor:
                         //Toast.makeText(DrawerActivity.this, "Purchase Selected", Toast.LENGTH_SHORT).show();
                         onFragmentInteraction("Reproductor",5);
+                        break;
+                    case R.id.menu_logout:
+                        Intent intent = new Intent(MainActivity.this,Login.class);
+                        startActivity(intent);
+                        DB db = new DB(getApplicationContext());
+                        db.logOut();
+                        finish();
                         break;
                 }
                 return true;
@@ -113,19 +114,20 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 f = new PerfilUsuario();
                 break;
             case 2:
+                f = new Memory();
                 setTitle(text);
                 break;
             case 3:
                 setTitle(text);
                 break;
             case 4:
+                f = new Ranking();
                 setTitle(text);
                 break;
             case 5:
                 setTitle(text);
                 break;
         }
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 fragmentManager.beginTransaction();

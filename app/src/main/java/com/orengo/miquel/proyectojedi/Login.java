@@ -26,18 +26,25 @@ public class Login extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.et_password);
         bLogin = (Button) findViewById(R.id.b_login);
         bRegister = (Button) findViewById(R.id.b_register);
-        bLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                execLogin();
-            }
-        });
-        bRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                execRegister();
-            }
-        });
+        if(db.getConectado().equals("")) {
+            bLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    execLogin();
+                }
+            });
+            bRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    execRegister();
+                }
+            });
+        }
+        else{
+            Intent intent = new Intent(Login.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void execRegister() {
