@@ -43,23 +43,23 @@ public class PlayerService extends Service {
         song = new File(sdCard.getAbsolutePath() + "/Music/tailtoddle_lo.mp3");
     }
 
-//    @Override
-//    public int onStartCommand(Intent intent, int flags, int startId) {
-//        try {
-//            mediaPlayer.setDataSource(song.getAbsolutePath());
-//            mediaPlayer.prepare();
-//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                @Override
-//                public void onCompletion(MediaPlayer mediaPlayer) {
-//                    mediaPlayer.release();
-//                }
-//            });
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        mediaPlayer.start();
-//        return super.onStartCommand(intent, flags, startId);
-//    }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        try {
+            mediaPlayer.setDataSource(song.getAbsolutePath());
+            mediaPlayer.prepare();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mediaPlayer.release();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.start();
+        return super.onStartCommand(intent, flags, startId);
+    }
 
 
     @Override

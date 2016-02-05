@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    private String titulo;
+    private int id;
 
 
     @Override
@@ -108,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     public void onFragmentInteraction(String text, Integer from) {
         android.support.v4.app.Fragment f = null;
         Bundle b = new Bundle();
+        titulo = text;
+        id = from;
         switch(from){
             case 1:
                 setTitle(text);
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 setTitle(text);
                 break;
             case 3:
+                f = new Calculadora();
                 setTitle(text);
                 break;
             case 4:
@@ -125,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 setTitle(text);
                 break;
             case 5:
+                f = new MusicPlayer();
                 setTitle(text);
                 break;
         }
@@ -134,4 +140,19 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         fragmentTransaction.replace(R.id.frameDrawer, f);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("tittle", titulo);
+        outState.putInt("id",id);
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        onFragmentInteraction(savedInstanceState.getString("tittle"), savedInstanceState.getInt("id"));
+    }
+
 }
