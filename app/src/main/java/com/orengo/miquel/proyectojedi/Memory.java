@@ -101,11 +101,11 @@ public class Memory extends Fragment {
             primera.setOk(true);
             segunda.setOk(true);
         }
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void compruebaFin(){
@@ -348,6 +348,14 @@ public class Memory extends Fragment {
         }
         ++volteadas;
     }
+
+//    private void espera(){
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void setListeners(){
         i1.setOnClickListener(new View.OnClickListener() {
