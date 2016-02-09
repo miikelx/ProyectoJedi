@@ -1,6 +1,7 @@
 package com.orengo.miquel.proyectojedi;
 
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class Ranking extends Fragment {
     private ArrayList<Usuario> usuarios;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayout;
+    private Button bReiniciar;
 
 
 
@@ -47,9 +49,10 @@ public class Ranking extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.ranking, container, false);
+        final View rootView = inflater.inflate(R.layout.ranking, container, false);
         db = new DB(getActivity());
         usuarios = db.getUsers();
+        bReiniciar = (Button) rootView.findViewById(R.id.b_reiniciaRanking);
         for(int i = 0; i < usuarios.size(); ++i){
             if(usuarios.get(i).getIntentos() == -1) usuarios.remove(i);
         }
@@ -69,6 +72,13 @@ public class Ranking extends Fragment {
         //seg�n la estructura definida.
         //Asignamos nuestro custom Adapter
         mRecyclerView.setAdapter(new AdapterRanking(usuarios));
+        bReiniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.reiniciaRanking(db.getConectado());
+                Snackbar.make(rootView.findViewById(R.id.layoutRanking),"ESTADISTICAS REINICIADAS",Snackbar.LENGTH_INDEFINITE).show();
+            }
+        });
         return rootView;
     }
 

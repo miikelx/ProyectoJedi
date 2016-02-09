@@ -24,7 +24,7 @@ public class DB extends SQLiteOpenHelper {
 
     //sentencia global de cracion de la base de datos
     public static final String USERS_TABLE_CREATE = "CREATE TABLE " + USERS_TABLE + " (username TEXT PRIMARY KEY UNIQUE, password TEXT, imagen TEXT," +
-            " puntuacion INT, direccion TEXT);";
+            " puntuacion INT);";
 
 
     public static final String USER_LOGGED = "Logged";
@@ -86,8 +86,7 @@ public class DB extends SQLiteOpenHelper {
         String uri,dir;
         int punt = aux.getIntentos();
         uri = aux.getFotoPerfil().toString();
-        dir = aux.getDireccion();
-        String SQL = "INSERT INTO "+USERS_TABLE+" (username,password,imagen,puntuacion,direccion) VALUES ('"+u+"','"+p1+"','"+uri+"',"+punt+",'"+dir+"')";
+        String SQL = "INSERT INTO "+USERS_TABLE+" (username,password,imagen,puntuacion) VALUES ('"+u+"','"+p1+"','"+uri+"',"+punt+")";
         db.execSQL(SQL);
     }
 
@@ -112,7 +111,6 @@ public class DB extends SQLiteOpenHelper {
             nuevo.setPassword(c.getString(1));
             nuevo.setFotoPerfil(Uri.parse(c.getString(2)));
             nuevo.setIntentos(c.getInt(3));
-            nuevo.setDireccion(c.getString(4));
         }
         return nuevo;
     }
@@ -129,7 +127,6 @@ public class DB extends SQLiteOpenHelper {
                 aux.setPassword(c.getString(1));
                 aux.setFotoPerfil(Uri.parse(c.getString(2)));
                 aux.setIntentos(c.getInt(3));
-                aux.setDireccion(c.getString(4));
                 ret.add(aux);
             } while (c.moveToNext());
         }
@@ -142,15 +139,17 @@ public class DB extends SQLiteOpenHelper {
         db.execSQL(SQL);
     }
 
-    public void updateDireccion(String username, String direccion){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String SQL = "UPDATE "+USERS_TABLE+" SET direccion='"+direccion+"' WHERE username='"+username+"'";
-        db.execSQL(SQL);
-    }
 
     public void updatePuntuacion(String username, int puntuacion){
         SQLiteDatabase db = this.getWritableDatabase();
         String SQL = "UPDATE "+USERS_TABLE+" SET puntuacion="+puntuacion+" WHERE username='"+username+"'";
+        db.execSQL(SQL);
+    }
+
+    public void reiniciaRanking(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int aux = -1;
+        String SQL = "UPDATE "+USERS_TABLE+" SET puntuacion="+aux+" WHERE username='"+username+"'";
         db.execSQL(SQL);
     }
 }

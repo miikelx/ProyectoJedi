@@ -12,11 +12,9 @@ public class Usuario {
     private String password;
     private Uri fotoPerfil;
     private int intentos;
-    private String direccion;
 
     public Usuario() {
         this.intentos = -1;
-        this.direccion = "";
         this.fotoPerfil = Uri.parse("android.resource://com.orengo.miquel.proyectojedi/drawable/noimage");
     }
 
@@ -25,7 +23,6 @@ public class Usuario {
         this.password = password;
         this.fotoPerfil = fotoPerfil;
         this.intentos = intentos;
-        this.direccion = direccion;
     }
 
     public String getUsername() {
@@ -60,13 +57,6 @@ public class Usuario {
         this.intentos = intentos;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
 
 
 }

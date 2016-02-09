@@ -1,168 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.orengo.miquel.proyectojedi.Memory"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:id="@+id/layoutMemory">
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="65dp"
+        android:id="@+id/linearLayout2">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_1"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_2"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_1"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_3"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_2"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_4"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_3"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_4"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_5"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_6"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_7"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_8"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_9"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_10"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_11"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_12"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_13"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_14"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_15"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_16"
+                android:layout_weight="1"
+                android:src="@drawable/card_back"
+                android:layout_margin="2dp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESET"
+        android:id="@+id/b_reset"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_5"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Intentos"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_alignStart="@+id/linearLayout2"
+        android:layout_marginTop="20dp" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_6"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tv_nintentos"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignLeft="@+id/b_reset"
+        android:layout_alignStart="@+id/b_reset"
+        android:layout_marginTop="20dp"
+        android:text="0" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_7"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_8"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_9"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_10"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_11"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_12"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_13"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_14"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_15"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/iv_16"
-            android:layout_weight="1"
-            android:src="@drawable/card_back"
-            android:layout_margin="2dp" />
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

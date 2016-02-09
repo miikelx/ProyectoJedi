@@ -51,8 +51,8 @@ public class PerfilUsuario extends Fragment {
         nombre.setText(u.getUsername());
         if(u.getIntentos() != -1) mejorPuntuacion.setText(Integer.toString(u.getIntentos()));
         else mejorPuntuacion.setText("No ha jugado ninguna partida.");
-        if(!u.getDireccion().equals("")) direccion.setText(u.getDireccion());
-        else direccion.setText("No se ha añadido direccon");
+        //if(!u.getDireccion().equals("")) direccion.setText(u.getDireccion());
+        direccion.setText("GPS Desactivado");
         if(!u.getFotoPerfil().equals("")) fotoPerfil.setImageURI(u.getFotoPerfil());
         fotoPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
