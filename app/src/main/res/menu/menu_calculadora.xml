@@ -2,11 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_call"
-        android:title="Call"
+        android:title="CALL"
+        app:showAsAction="always">
+    </item>
+    <item android:id="@+id/action_internet"
+        android:title="WEB"
         app:showAsAction="always">
     </item>
     <item android:id="@+id/action_error"
-        android:title="Error"
+        android:title="SI"
         app:showAsAction="always">
         <menu xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -25,7 +29,7 @@
         </menu>
     </item>
     <item android:id="@+id/action_noerror"
-        android:title="No Error"
+        android:title="NO"
         app:showAsAction="always">
     </item>
 </menu>

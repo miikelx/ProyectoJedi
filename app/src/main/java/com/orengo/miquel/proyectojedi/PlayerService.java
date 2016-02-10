@@ -17,6 +17,7 @@ public class PlayerService extends Service {
     private File sdCard;
     private File song;
     private final IBinder binder = new LocalBinder();
+    private int length = -1;
 
 
 
@@ -40,7 +41,7 @@ public class PlayerService extends Service {
         super.onCreate();
         mediaPlayer = new MediaPlayer();
         sdCard = Environment.getExternalStorageDirectory();
-        song = new File(sdCard.getAbsolutePath() + "/Music/Kygo.mp3");
+        song = new File(sdCard.getAbsolutePath() + "/Music/kygo.mp3");
     }
 
     @Override
@@ -62,27 +63,42 @@ public class PlayerService extends Service {
     }
 
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();    }
 
+
     public void play(){
-        try {
-            mediaPlayer.setDataSource(song.getAbsolutePath());
-            mediaPlayer.prepare();
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    mediaPlayer.release();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(length == -1) {
+            try {
+                mediaPlayer.setDataSource(song.getAbsolutePath());
+                mediaPlayer.prepare();
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        mediaPlayer.release();
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.start();
         }
-        mediaPlayer.start();
+        else{
+            mediaPlayer.seekTo(length);
+            mediaPlayer.start();
+        }
     }
 
     public void pause(){
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+            length = mediaPlayer.getCurrentPosition();
+        }
+        else{
+            mediaPlayer.start();
+        }
 
     }
 }

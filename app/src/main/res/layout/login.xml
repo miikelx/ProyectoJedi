@@ -10,6 +10,16 @@
     android:id="@+id/layoutLogin"
     tools:context="com.orengo.miquel.proyectojedi.Login">
 
+    <com.twitter.sdk.android.core.identity.TwitterLoginButton
+        android:id="@+id/twitter_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/b_login"
+        android:layout_centerHorizontal="true" />
+
+
+
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

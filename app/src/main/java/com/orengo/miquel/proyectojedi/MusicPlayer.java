@@ -20,7 +20,6 @@ import android.widget.TextView;
 public class MusicPlayer extends Fragment {
 
     ImageView bPlay,bPause;
-    TextView tV;
     PlayerService mService;
     boolean bound = false;
     private OnFragmentInteractionListener mListener;
@@ -37,6 +36,7 @@ public class MusicPlayer extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.music_player, container, false);
         mService = new PlayerService();
+        mService.onCreate();
         bPlay = (ImageView) rootView.findViewById(R.id.iv_play);
         imagenCancion = (ImageView) rootView.findViewById(R.id.iv_album);
         imagenCancion.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,6 @@ public class MusicPlayer extends Fragment {
                 imagenCancion.setImageDrawable(d);
             }
         });
-        tV = (TextView) rootView.findViewById(R.id.tv_tittle);
         return rootView;
     }
 

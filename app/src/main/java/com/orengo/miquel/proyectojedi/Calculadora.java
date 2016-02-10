@@ -44,6 +44,10 @@ public class Calculadora extends Fragment implements View.OnClickListener{
     private OnFragmentInteractionListener mListener;
     private MenuInflater menuInflater;
 
+    public Calculadora(){
+
+    }
+
     public Calculadora(MenuInflater inf){
         menuInflater = inf;
     }
@@ -408,13 +412,11 @@ public class Calculadora extends Fragment implements View.OnClickListener{
                 .show(); // Importante!!! No olvidar mostrar la Snackbar.
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        //super.onCreateOptionsMenu(menu);
-//        super.onCreateOptionsMenu(menu,menuInflater);
-//        menuInflater.inflate(R.menu.menu_calculadora, menu);
-//        return true;
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //super.onCreateOptionsMenu(menu);
+        inflater.inflate(R.menu.menu_calculadora, menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -440,37 +442,36 @@ public class Calculadora extends Fragment implements View.OnClickListener{
                 idNotificacion = 3;
                 Toast.makeText(getActivity(),"Notification bar selected",Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.action_internet:
+                Uri uriUrl = Uri.parse("http://www.google.es");
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                startActivity(launchBrowser);
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     private void aNotificacion(){
-//        int mId = 1;
-//        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
-//        bigTextStyle.setBigContentTitle("ERROR");
-//        bigTextStyle.setSummaryText("Division entre 0");
-//        bigTextStyle.bigText("Error, no es posible dividir entre 0, prueba realizando la division con otro valor");
-//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity());
-//        mBuilder.setStyle(bigTextStyle);
-//        mBuilder.setSmallIcon(R.drawable.block32);
-////                =
-////                new NotificationCompat.Builder(getApplicationContext())
-////                        .setSmallIcon(R.drawable.block32)
-////                        .setContentTitle("ERROR")
-////                        .setContentText("No se puede dividir entre 0");
-//        Intent resultIntent = new Intent(getActivity(), MainActivity.class);
-//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
-//        stackBuilder.addParentStack(MainActivity.class);
-//        stackBuilder.addNextIntent(resultIntent);
-//        PendingIntent resultPendingIntent =
-//                stackBuilder.getPendingIntent(
-//                        0,
-//                        PendingIntent.FLAG_UPDATE_CURRENT
-//                );
-//        mBuilder.setContentIntent(resultPendingIntent);
-//        mNotificationManager.notify(mId, mBuilder.build());
+        int mId = 1;
+        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        bigTextStyle.setBigContentTitle("ERROR");
+        bigTextStyle.setSummaryText("Division entre 0");
+        bigTextStyle.bigText("Error, no es posible dividir entre 0, prueba realizando la division con otro valor");
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity());
+        mBuilder.setStyle(bigTextStyle);
+        mBuilder.setSmallIcon(R.drawable.block32);
+        Intent resultIntent = new Intent(getActivity(), MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager.notify(mId, mBuilder.build());
     }
 
 
@@ -512,14 +513,7 @@ public class Calculadora extends Fragment implements View.OnClickListener{
             //probably orientation change
             restore(savedInstanceState);
         }
-//        else {
-//            //if (myData != null) {
-//                //returning from backstack, data is fine, do nothing
-//            } else {
-//                //newly created, compute data
-//                //myData = computeData();
-//            }
-        }
+    }
 
 
     @Override
