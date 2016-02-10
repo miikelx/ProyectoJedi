@@ -40,7 +40,7 @@ public class PlayerService extends Service {
         super.onCreate();
         mediaPlayer = new MediaPlayer();
         sdCard = Environment.getExternalStorageDirectory();
-        song = new File(sdCard.getAbsolutePath() + "/Music/tailtoddle_lo.mp3");
+        song = new File(sdCard.getAbsolutePath() + "/Music/Kygo.mp3");
     }
 
     @Override

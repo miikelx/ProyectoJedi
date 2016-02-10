@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_call"
+        android:title="Call"
+        app:showAsAction="always">
+    </item>
+    <item android:id="@+id/action_error"
+        android:title="Error"
+        app:showAsAction="always">
+        <menu xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+            <item android:id="@+id/action_toast"
+                android:title="Toast"
+                app:showAsAction="always">
+            </item>
+            <item android:id="@+id/action_snackbar"
+                android:title="Snackbar"
+                app:showAsAction="always">
+            </item>
+            <item android:id="@+id/action_notificacion"
+                android:title="Barra"
+                app:showAsAction="always">
+            </item>
+        </menu>
+    </item>
+    <item android:id="@+id/action_noerror"
+        android:title="No Error"
+        app:showAsAction="always">
+    </item>
+</menu>

@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 setTitle(text);
                 break;
             case 3:
-                f = new Calculadora();
+                f = new Calculadora(getMenuInflater());
                 setTitle(text);
                 break;
             case 4:

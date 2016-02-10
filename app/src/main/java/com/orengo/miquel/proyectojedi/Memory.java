@@ -1,19 +1,16 @@
 package com.orengo.miquel.proyectojedi;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.ObjectAnimator;
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +18,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Memory extends Fragment {
@@ -39,6 +34,8 @@ public class Memory extends Fragment {
     private TextView tIntentos;
     private View rootView;
     private Drawable back;
+    boolean pause = true;
+    private Button bReset;
 
 
 
@@ -85,6 +82,18 @@ public class Memory extends Fragment {
         mListener = null;
     }
 
+    private void pauseVolteo(){
+        MyTask task = new MyTask();
+        task.execute();
+        task.doInBackground();
+        String result = null;
+        task.onPostExecute(result);
+        while(pause){
+
+        }
+        pause = true;
+    }
+
     private void compruebaVolteadas(){
         if(volteadas > 1){
             resetCartas();
@@ -95,21 +104,37 @@ public class Memory extends Fragment {
         }
     }
 
-    private void compruebaWin(){
+    private void compruebaPareja(){
         if(primera.getId() == segunda.getId()){
             ++completadas;
             primera.setOk(true);
             segunda.setOk(true);
         }
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        else pauseVolteo();
+    }
+
+    private void dialogFin(){
+        new AlertDialog.Builder(getActivity()).setTitle("Victoria").setMessage("Fi de la partida")
+                .setPositiveButton("Ranking", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.frameDrawer, new Ranking(), "Ranking");
+                        ft.commit();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     private void compruebaFin(){
         if(completadas == 8){
+            dialogFin();
             Snackbar.make(rootView.findViewById(R.id.layoutMemory),"WIN",Snackbar.LENGTH_LONG).show();
             DB db = new DB(getActivity());
             String naux = db.getConectado();
@@ -118,9 +143,9 @@ public class Memory extends Fragment {
         }
     }
 
-    private void ini(Carta c, Drawable aux, ImageView id){
-        c = new Carta(back,aux,id);
-    }
+//    private void ini(Carta c, Drawable aux, ImageView id){
+//        c = new Carta(back,aux,id);
+//    }
 
     private boolean compruebaOk(int[] apariciones, int random){
         if(apariciones[random-1] > 1) return false;
@@ -336,6 +361,7 @@ public class Memory extends Fragment {
         i15 = (ImageView) view.findViewById(R.id.iv_15);
         i16 = (ImageView) view.findViewById(R.id.iv_16);
         tIntentos = (TextView) view.findViewById(R.id.tv_nintentos);
+        bReset = (Button) view.findViewById(R.id.b_reset);
     }
 
     private void volteaCarta(Carta c){
@@ -349,13 +375,6 @@ public class Memory extends Fragment {
         ++volteadas;
     }
 
-//    private void espera(){
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void setListeners(){
         i1.setOnClickListener(new View.OnClickListener() {
@@ -365,7 +384,7 @@ public class Memory extends Fragment {
                     c1.voltea(getActivity());
                     volteaCarta(c1);
                     if(volteadas > 1){
-                        compruebaWin();
+                        compruebaPareja();
                     }
                     compruebaFin();
                     compruebaVolteadas();
@@ -378,7 +397,7 @@ public class Memory extends Fragment {
                 if(!c2.isOk() && !c2.isVolteada()) {
                     c2.voltea(getActivity());
                     volteaCarta(c2);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -390,7 +409,7 @@ public class Memory extends Fragment {
                 if(!c3.isOk() && !c3.isVolteada()) {
                     c3.voltea(getActivity());
                     volteaCarta(c3);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -402,7 +421,7 @@ public class Memory extends Fragment {
                 if(!c4.isOk() && !c4.isVolteada()) {
                     c4.voltea(getActivity());
                     volteaCarta(c4);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -414,7 +433,7 @@ public class Memory extends Fragment {
                 if(!c5.isOk() && !c5.isVolteada()) {
                     c5.voltea(getActivity());
                     volteaCarta(c5);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -426,7 +445,7 @@ public class Memory extends Fragment {
                 if(!c6.isOk() && !c6.isVolteada()) {
                     c6.voltea(getActivity());
                     volteaCarta(c6);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -438,7 +457,7 @@ public class Memory extends Fragment {
                 if(!c7.isOk() && !c7.isVolteada()) {
                     c7.voltea(getActivity());
                     volteaCarta(c7);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -450,7 +469,7 @@ public class Memory extends Fragment {
                 if(!c8.isOk() && !c8.isVolteada()) {
                     c8.voltea(getActivity());
                     volteaCarta(c8);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -462,7 +481,7 @@ public class Memory extends Fragment {
                 if(!c9.isOk() && !c9.isVolteada()) {
                     c9.voltea(getActivity());
                     volteaCarta(c9);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -474,7 +493,7 @@ public class Memory extends Fragment {
                 if(!c10.isOk() && !c10.isVolteada()) {
                     c10.voltea(getActivity());
                     volteaCarta(c10);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -486,7 +505,7 @@ public class Memory extends Fragment {
                 if(!c11.isOk() && !c11.isVolteada()) {
                     c11.voltea(getActivity());
                     volteaCarta(c11);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -498,7 +517,7 @@ public class Memory extends Fragment {
                 if(!c12.isOk() && !c12.isVolteada()) {
                     c12.voltea(getActivity());
                     volteaCarta(c12);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -510,7 +529,7 @@ public class Memory extends Fragment {
                 if(!c13.isOk() && !c13.isVolteada()) {
                     c13.voltea(getActivity());
                     volteaCarta(c13);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -522,7 +541,7 @@ public class Memory extends Fragment {
                 if(!c14.isOk() && !c14.isVolteada()) {
                     c14.voltea(getActivity());
                     volteaCarta(c14);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -534,7 +553,7 @@ public class Memory extends Fragment {
                 if(!c15.isOk() && !c15.isVolteada()) {
                     c15.voltea(getActivity());
                     volteaCarta(c15);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -546,153 +565,50 @@ public class Memory extends Fragment {
                 if(!c16.isOk() && !c16.isVolteada()) {
                     c16.voltea(getActivity());
                     volteaCarta(c16);
-                    if(volteadas > 1) compruebaWin();
+                    if(volteadas > 1) compruebaPareja();
                     compruebaFin();
                     compruebaVolteadas();
                 }
             }
         });
+        bReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.frameDrawer, new Memory(), "Memory");
+                ft.commit();
+            }
+        });
     }
 
 
-//    private class Carta{
-//        Drawable imagen;
-//        Drawable back;
-//        ImageView posicion;
-//        boolean volteada;
-//        boolean ok;
-//        int id;
-//
-//        public Carta(Drawable im, ImageView pos){
-//            this.imagen = im;
-//            this.back = ContextCompat.getDrawable(getActivity(), R.drawable.card_back);
-//            this.posicion = pos;
-//            this.ok = false;
-//            this.volteada = false;
-//        }
-//
-//        public Drawable getImagen() {
-//            return imagen;
-//        }
-//
-//        public void setImagen(Drawable imagen) {
-//            this.imagen = imagen;
-//        }
-//
-//        public Drawable getBack() {
-//            return back;
-//        }
-//
-//        public void setBack(Drawable back) {
-//            this.back = back;
-//        }
-//
-//        public boolean isVolteada() {
-//            return volteada;
-//        }
-//
-//        public void setVolteada(boolean volteada) {
-//            this.volteada = volteada;
-//        }
-//
-//        public boolean isOk(){
-//            return this.ok;
-//        }
-//
-//        public void setId(int id){
-//            this.id = id;
-//
-//        }
-//
-//        public int getId(){
-//            return this.id;
-//        }
-//
-//        public void setOk(boolean ok){
-//            this.ok = ok;
-//        }
-//
-//        public void voltea(){
-//            if(!volteada){
-//                final Drawable newImage = imagen;
-//                final ImageView containerToFlip = posicion;
-//                final Context context = getActivity();
-//
-//                ObjectAnimator anim = (ObjectAnimator) AnimatorInflater.loadAnimator(
-//                        context, R.animator.flip);
-//                anim.addListener(new Animator.AnimatorListener() {
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        ObjectAnimator anim2 = (ObjectAnimator) AnimatorInflater.loadAnimator(
-//                                context, R.animator.flip_end);
-//                        containerToFlip.setImageDrawable(newImage);
-//                        anim2.setTarget(containerToFlip);
-//                        anim2.setDuration(100);
-//                        anim2.start();
-//                    }
-//
-//                    @Override
-//                    public void onAnimationCancel(Animator animation) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animator animation) {
-//
-//                    }
-//                });
-//                anim.setTarget(containerToFlip);
-//                anim.setDuration(100);
-//                anim.start();
-//                volteada = true;
-//            }
-//        }
-//
-//        public void reinicia(){
-//            final Drawable newImage = back;
-//            final ImageView containerToFlip = posicion;
-//            final Context context = getActivity();
-//            if(!this.isOk() && this.volteada) {
-//                ObjectAnimator anim = (ObjectAnimator) AnimatorInflater.loadAnimator(
-//                        context, R.animator.flip);
-//                anim.addListener(new Animator.AnimatorListener() {
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        ObjectAnimator anim2 = (ObjectAnimator) AnimatorInflater.loadAnimator(
-//                                context, R.animator.flip_end);
-//                        containerToFlip.setImageDrawable(newImage);
-//                        anim2.setTarget(containerToFlip);
-//                        anim2.setDuration(100);
-//                        anim2.start();
-//                    }
-//
-//                    @Override
-//                    public void onAnimationCancel(Animator animation) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animator animation) {
-//
-//                    }
-//                });
-//                anim.setTarget(containerToFlip);
-//                anim.setDuration(100);
-//                anim.start();
-//                volteada = false;
-//            }
-//        }
-//
-//
-//    }
+    private class MyTask extends AsyncTask<Integer, Integer, String> {
+        @Override
+        protected String doInBackground(Integer... param) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            pause = false;
+
+        }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+        }
+        @Override
+        protected void onPreExecute() {
+            Log.i( "task", "onPreExecute()" );
+            super.onPreExecute();
+        }
+
+
+    }
 }

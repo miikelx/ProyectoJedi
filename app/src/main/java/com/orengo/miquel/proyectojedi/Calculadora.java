@@ -14,6 +14,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,9 +42,10 @@ public class Calculadora extends Fragment implements View.OnClickListener{
     private int idNotificacion; //1-Toast, 2-Snackbar, 3-Barra Notificaciones
     private View rootView;
     private OnFragmentInteractionListener mListener;
+    private MenuInflater menuInflater;
 
-    public Calculadora(){
-
+    public Calculadora(MenuInflater inf){
+        menuInflater = inf;
     }
 
 
@@ -52,6 +56,7 @@ public class Calculadora extends Fragment implements View.OnClickListener{
         primer = true;
         suma = resta = multi = div = false;
         nou = true;
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -401,6 +406,43 @@ public class Calculadora extends Fragment implements View.OnClickListener{
     private void aSnackbar(){
         Snackbar.make(rootView.findViewById(R.id.linearLayout), "No es posible dividir por 0", Snackbar.LENGTH_LONG)
                 .show(); // Importante!!! No olvidar mostrar la Snackbar.
+    }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        //super.onCreateOptionsMenu(menu);
+//        super.onCreateOptionsMenu(menu,menuInflater);
+//        menuInflater.inflate(R.menu.menu_calculadora, menu);
+//        return true;
+//    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_error:
+                return true;
+            case R.id.action_noerror:
+                noError();
+                return true;
+            case R.id.action_call:
+                call();
+                return true;
+            case R.id.action_toast:
+                idNotificacion = 1;
+                Toast.makeText(getActivity(),"Toast selected",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_snackbar:
+                idNotificacion = 2;
+                Toast.makeText(getActivity(),"Snackbar selected",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_notificacion:
+                idNotificacion = 3;
+                Toast.makeText(getActivity(),"Notification bar selected",Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void aNotificacion(){
