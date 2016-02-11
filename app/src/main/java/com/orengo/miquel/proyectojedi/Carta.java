@@ -5,7 +5,9 @@ import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.ImageView;
 
 /**
@@ -18,9 +20,10 @@ public class Carta {
     boolean volteada;
     boolean ok;
     int id;
+    boolean pause = true;
     //Context context;
 
-    public Carta(Drawable back, Drawable im, ImageView pos){
+    public Carta(Drawable back, Drawable im, ImageView pos) {
         //this.context = c;
         this.imagen = im;
         this.back = back;
@@ -53,25 +56,26 @@ public class Carta {
         this.volteada = volteada;
     }
 
-    public boolean isOk(){
+    public boolean isOk() {
         return this.ok;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
 
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
-    public void setOk(boolean ok){
+    public void setOk(boolean ok) {
         this.ok = ok;
     }
 
-    public void voltea(Context c){
-        if(!volteada){
+    public void voltea(Context c) {
+        if (!volteada) {
+
             final Drawable newImage = imagen;
             final ImageView containerToFlip = posicion;
             final Context context = c;
@@ -111,11 +115,11 @@ public class Carta {
         }
     }
 
-    public void reinicia(Context c){
+    public void reinicia(Context c) {
         final Drawable newImage = back;
         final ImageView containerToFlip = posicion;
         final Context context = c;
-        if(!this.isOk() && this.volteada) {
+        if (!this.isOk() && this.volteada) {
             ObjectAnimator anim = (ObjectAnimator) AnimatorInflater.loadAnimator(
                     context, R.animator.flip);
             anim.addListener(new Animator.AnimatorListener() {
@@ -150,7 +154,6 @@ public class Carta {
             volteada = false;
         }
     }
-
-
 }
+
 

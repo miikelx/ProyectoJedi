@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class Memory extends Fragment {
+public class Memory extends Fragment  {
 
 
     private OnFragmentInteractionListener mListener;
@@ -36,6 +36,7 @@ public class Memory extends Fragment {
     private Drawable back;
     boolean pause = true;
     private Button bReset;
+    private boolean continua = false;
 
 
 
@@ -84,19 +85,17 @@ public class Memory extends Fragment {
 
     private void pauseVolteo(){
         MyTask task = new MyTask();
-        task.execute();
+        //task.execute();
         task.doInBackground();
         String result = null;
         task.onPostExecute(result);
-        while(pause){
-
-        }
-        pause = true;
+        //pause = true;
     }
 
     private void compruebaVolteadas(){
         if(volteadas > 1){
-            resetCartas();
+            //pauseVolteo();
+            //resetCartas();
             volteadas = 0;
             sec = false;
             ++intentos;
@@ -110,7 +109,7 @@ public class Memory extends Fragment {
             primera.setOk(true);
             segunda.setOk(true);
         }
-        else pauseVolteo();
+//        else pauseVolteo();
     }
 
     private void dialogFin(){
@@ -142,10 +141,6 @@ public class Memory extends Fragment {
             if(aux.getIntentos() > intentos+1 || aux.getIntentos() == -1) db.updatePuntuacion(naux,intentos+1);
         }
     }
-
-//    private void ini(Carta c, Drawable aux, ImageView id){
-//        c = new Carta(back,aux,id);
-//    }
 
     private boolean compruebaOk(int[] apariciones, int random){
         if(apariciones[random-1] > 1) return false;
@@ -383,7 +378,8 @@ public class Memory extends Fragment {
                 if(!c1.isOk() && !c1.isVolteada()) {
                     c1.voltea(getActivity());
                     volteaCarta(c1);
-                    if(volteadas > 1){
+                    if (volteadas > 1) {
+                        pauseVolteo();
                         compruebaPareja();
                     }
                     compruebaFin();
@@ -397,7 +393,11 @@ public class Memory extends Fragment {
                 if(!c2.isOk() && !c2.isVolteada()) {
                     c2.voltea(getActivity());
                     volteaCarta(c2);
-                    if(volteadas > 1) compruebaPareja();
+                    //pauseVolteo();
+                    if(volteadas > 1){
+                        compruebaPareja();
+                        pauseVolteo();
+                    }
                     compruebaFin();
                     compruebaVolteadas();
                 }
@@ -595,7 +595,7 @@ public class Memory extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            pause = false;
+            resetCartas();
 
         }
         @Override
@@ -605,7 +605,6 @@ public class Memory extends Fragment {
         }
         @Override
         protected void onPreExecute() {
-            Log.i( "task", "onPreExecute()" );
             super.onPreExecute();
         }
 
